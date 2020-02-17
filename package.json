@@ -1,0 +1,26 @@
+{
+  "name": "api_model",
+  "version": "1.0.0",
+  "description": "This API is being created to be used as a target for several attacks, such as fuzzing, flooding and pentesting.",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/guilhermecruzdev/api_model.git"
+  },
+  "author": "https://guilhermecruzdev.com",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/guilhermecruzdev/api_model/issues"
+  },
+  "homepage": "https://github.com/guilhermecruzdev/api_model#readme",
+  "dependencies": {
+    "@hapi/joi": "^17.1.0",
+    "dotenv": "^8.2.0",
+    "express": "^4.17.1",
+    "joigoose": "^6.2.0",
+    "mongoose": "^5.9.1"
+  }
+}
