@@ -27,20 +27,21 @@ const bodyParser = require('body-parser')
 router.use(bodyParser.json({ type: 'application/json' }))
 router.use(bodyParser.urlencoded({ extended: true }))
 
+// Cookie parsing (req.cookies)
+const cookieParser = require('cookie-parser')
+router.use(cookieParser())
+
 // Translations (i18n)
-const i18n = require('i18n-express')
+const i18n = require('i18n')
 const i18nConfig = require(path.join(__dirname, 'configs', 'i18n'))(path)
-router.use(i18n(i18nConfig))
+i18n.configure(i18nConfig)
+router.use(i18n.init);
 
 // HTTP Error
 router.use(httpError)
 
 // HTTP Safe
 router.use(httpSafe)
-
-// Cookie parsing (req.cookies)
-const cookieParser = require('cookie-parser')
-router.use(cookieParser())
 
 // Static files (in order to use with Micro Frontends: https://micro-frontends.org/)
 router.use(express.static(path.join(__dirname, 'public')))

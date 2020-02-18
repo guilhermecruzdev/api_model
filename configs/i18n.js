@@ -1,14 +1,13 @@
 module.exports = (path) => {
     return {
-        translationsPath: path.join(__dirname, '../locales'),
-        cookieLangName: 'lang',
-        browserEnable: true,
-        defaultLang: process.env.APP_LANG,
-        paramLangName: 'lang',
-        siteLangs: [
+        locales: [
             'en',
             'pt-BR',
         ],
-        textsVarName: 'translate'
+        defaultLocale: process.env.APP_LANG,
+        cookie: 'lang',
+        directory: path.join(__dirname, '../locales'),
+        queryParameter: 'lang',
+        register: global
     }
 }
