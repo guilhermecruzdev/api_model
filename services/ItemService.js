@@ -1,5 +1,3 @@
-const httpError = require('../utils/error')
-
 ItemValidator = require('../validators/ItemValidator')
 ItemModel = require('../models/ItemModel')
 
@@ -17,7 +15,7 @@ module.exports = {
         // Validates the req.body (JSON) with the validator based on rules in the object model
         let result = ItemValidator.validate(req.body)
         if (result.error) {
-            httpError(res, 400, `Invalid JSON`, result.error)
+            res.httpError(400, `Invalid JSON`, result.error)
         } else {
             // Will req.body (JSON) fit the database model?
             let newItem = ItemModel(req.body)
@@ -25,7 +23,7 @@ module.exports = {
                 newItem.save(req.body)
                 res.send(req.body)
             }).catch(error => {
-                httpError(res, 400, `Invalid JSON`, error)
+                res.httpError(400, `Invalid JSON`, error)
             })
         }
     }
