@@ -1,6 +1,6 @@
 //const httpErrors = require('http-errors')
 
-const httpError = function(req, res, next) {
+module.exports = (req, res, next) => {
     res.httpError = function(code, message, error) {
         if (typeof message !== 'string') {
             message = ''
@@ -16,5 +16,3 @@ const httpError = function(req, res, next) {
     }
     next()
 }
-
-module.exports = httpError
