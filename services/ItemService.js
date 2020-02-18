@@ -12,10 +12,12 @@ module.exports = {
         }
     },
     post: (req, res) => {
+        // Validates the req.body (JSON) with the validator based on rules in the object model
         let result = ItemValidator.validate(req.body)
         if (result.error) {
-            res.status(400).json({ error: error })
+            res.status(400).json({ error: result.error })
         } else {
+            // Will req.body (JSON) fit the database model?
             let newItem = ItemModel(req.body)
             let error = newItem.validate().then(() => {
                 newItem.save(req.body)

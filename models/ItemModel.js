@@ -1,9 +1,11 @@
 const { Mongoose, Schema } = require('../infrastructure/database')
 
 /*
+// Temporarily disabled because of these situations:
 // https://github.com/yoitsro/joigoose/issues/36
 // https://stackoverflow.com/questions/60202382/schema-using-joigoose-and-mongoose-for-validation-in-node-js/60268773#60268773
 
+// Creates the Item's Schema based on Joi Schema
 const Joigoose = require('joigoose')(Mongoose, { convert: false })
 const ItemValidator = require('../validators/ItemValidator')
 const ItemSchema = new Schema(Joigoose.convert(ItemValidator))
