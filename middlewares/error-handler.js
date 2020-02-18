@@ -1,7 +1,7 @@
 module.exports = (error, req, res, next) => {
 
     if (res.headersSent) {
-        return next(err)
+        return next(error)
     }
 
     let message = `General error`
