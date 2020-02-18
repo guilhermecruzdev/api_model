@@ -7,7 +7,7 @@ Mongoose.connect(process.env.DB_HOST, {
     useCreateIndex: true,
 })
 
-var db = Mongoose.connection;
+const db = Mongoose.connection
 db.on('error', () => {
     console.log(`Database Connection: Error`)
 })
