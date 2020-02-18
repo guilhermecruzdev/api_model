@@ -1,0 +1,5 @@
+{
+    "REGEXP_ZIP_CODE": "^\\d{5}$",
+    "REGEXP_AREA_CODE": "^\\d{3}$",
+    "REGEXP_PHONE_NUMBER": "^\\d{7}$"
+}
