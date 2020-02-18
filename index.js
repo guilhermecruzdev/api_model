@@ -1,17 +1,11 @@
 require('dotenv').config()
 
 const path = require('path')
-
 const fs = require('fs')
-
 const rfs = require('rotating-file-stream')
-
+const httpError = require('./middlewares/http-error')
 const httpLogger = require('morgan')
-
-const httpError = require('./utils/error')
-
 const express = require('express')
-
 const app = express()
 
 // HTTP Logger
@@ -50,10 +44,13 @@ const bodyParser = require('body-parser')
 router.use(bodyParser.json({ type: 'application/json' }))
 router.use(bodyParser.urlencoded({ extended: true }))
 
+// HTTP Error
+router.use(httpError)
+
 // Ensure that all POST requests have 'application/json' in Content-Type header
 router.route('*').post((req, res, next) => {
     if (!req.is('application/json')) {
-        httpError(res, 400, `Content-Type must be 'application/json' in all POST requests.`)
+        res.httpError(400, `Content-Type must be 'application/json' in all POST requests.`)
     } else {
         next()
     }
@@ -62,7 +59,7 @@ router.route('*').post((req, res, next) => {
 // Check if JSON in req.body is valid
 router.use((error, req, res, next) => {
     if (error instanceof SyntaxError) {
-        httpError(res, 500, `Syntax error in JSON`, error)
+        res.httpError(500, `Syntax error in JSON`, error)
     } else {
         next()
     }
@@ -78,7 +75,7 @@ router = require('./routes/Item')(router)
 
 // 404 Not Found
 router.use(function(req, res) {
-    httpError(res, 404, `Not Found`)
+    res.httpError(404, `Not Found`)
 })
 
 app.use(router)
