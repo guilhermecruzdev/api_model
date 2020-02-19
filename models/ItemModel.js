@@ -3,7 +3,8 @@ const { Mongoose, Schema } = require('../infrastructure/database')
 /**
  * Temporarily disabled because 'joigoose' is not working with the latest version of '@hapi/joi'.
  * IMO, both projects should go together. IT would be perfect if I could have a single Schema
- * for using with data validation in service and database layers.
+ * for using with data validation in service layer and, at the same time, fits the database schema
+ * with little or no customization.
  * 
  * https://github.com/yoitsro/joigoose/issues/36
  * https://stackoverflow.com/questions/60202382/schema-using-joigoose-and-mongoose-for-validation-in-node-js/60268773#60268773
