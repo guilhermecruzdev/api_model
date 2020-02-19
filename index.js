@@ -76,7 +76,7 @@ router.use(function(req, res) {
 
 app.use(router)
 
-// Views
+// Views (in order to use with Micro Frontends: https://micro-frontends.org/)
 app.set('views', path.join(__dirname, 'views'))
 app.set('view engine', 'ejs')
 
