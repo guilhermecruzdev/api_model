@@ -15,6 +15,11 @@
     },
     {
       "type": "gulp",
+      "task": "js",
+      "problemMatcher": []
+    },
+    {
+      "type": "gulp",
       "task": "watch",
       "group": "build",
       "problemMatcher": []
