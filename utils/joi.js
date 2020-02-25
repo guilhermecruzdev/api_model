@@ -20,13 +20,13 @@ module.exports = Joi.extend(
 
     // id
     {
-        base: Joi.number().strict().min(1),
+        base: Joi.string().regex(/^[0-9a-fA-F]{24}$/).required().trim(),
         type: 'id',
     },
 
     // limit
     {
-        base: Joi.number().strict().min(10).multiple(10).default(10),
+        base: Joi.number().min(10).multiple(10).default(10),
         type: 'limit',
     },
 
@@ -36,27 +36,21 @@ module.exports = Joi.extend(
         type: 'name',
     },
 
-    // number
+    // objectId
     {
-        base: Joi.number().strict(),
-        type: 'number',
-    },
-
-    // object_id
-    {
-        base: Joi.string().regex(/^[0-9a-fA-F]{24}$/).trim(),
-        type: 'object_id',
+        base: Joi.string().regex(/^[0-9a-fA-F]{24}$/).required().trim(),
+        type: 'objectId',
     },
 
     // offset
     {
-        base: Joi.number().strict().min(1).default(1),
+        base: Joi.number().min(1).default(1),
         type: 'offset',
     },
 
     // order
     {
-        base: Joi.number().strict().min(1).default(1),
+        base: Joi.number().min(1).default(1),
         type: 'order',
     },
 
@@ -78,16 +72,22 @@ module.exports = Joi.extend(
         type: 'phones',
     },
 
+    // postalCode
+    {
+        base: Joi.string().regex(new RegExp(global.__('REGEXP_ZIP_CODE'))).trim(),
+        type: 'postalCode',
+    },
+
     // search
     {
         base: Joi.string().min(2).max(100).trim(),
         type: 'search',
     },
 
-    // zip_code
+    // zipCode
     {
         base: Joi.string().regex(new RegExp(global.__('REGEXP_ZIP_CODE'))).trim(),
-        type: 'zip_code',
+        type: 'zipCode',
     }
 
 )
