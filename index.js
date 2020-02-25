@@ -5,7 +5,7 @@ const fs = require('fs')
 const rfs = require('rotating-file-stream')
 const httpLogger = require('morgan')
 const httpError = require('./middlewares/http-error')
-const httpSafe = require('./middlewares/http-safe')
+const httpSecurity = require('./middlewares/http-security')
 const errorHandler = require('./middlewares/error-handler')
 const express = require('express')
 const app = express()
@@ -42,8 +42,8 @@ router.use(i18n.init);
 // HTTP Error
 router.use(httpError)
 
-// HTTP Safe
-router.use(httpSafe)
+// HTTP Security
+router.use(httpSecurity)
 
 // Static files (in order to use with Micro Frontends: https://micro-frontends.org/)
 router.use(express.static(path.join(__dirname, 'public')))

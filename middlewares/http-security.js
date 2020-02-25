@@ -27,6 +27,7 @@ module.exports = (req, res, next) => {
         }
 
         res.httpError(code, message, events)
+
     } else {
         // Everything is ok
         next()
