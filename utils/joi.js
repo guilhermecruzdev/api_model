@@ -20,7 +20,7 @@ module.exports = Joi.extend(
 
     // id
     {
-        base: Joi.string().regex(/^[0-9a-fA-F]{24}$/).trim(),
+        base: Joi.string().regex(/^[0-9a-fA-F]{24}$/).required().trim(),
         type: 'id',
     },
 
@@ -38,7 +38,7 @@ module.exports = Joi.extend(
 
     // objectId
     {
-        base: Joi.string().regex(/^[0-9a-fA-F]{24}$/).trim(),
+        base: Joi.string().regex(/^[0-9a-fA-F]{24}$/).required().trim(),
         type: 'objectId',
     },
 

@@ -2,9 +2,7 @@ const Joi = require('../utils/joi')
 
 module.exports = {
 
-    id: Joi.object({
-        id: Joi.id(),
-    }),
+    id: Joi.id(),
 
     get: Joi.object({
         search: Joi.search(),

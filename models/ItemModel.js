@@ -60,7 +60,7 @@ const ItemSchema = {
 
 const ItemModel = {
 
-    post: Mongoose.model('Items', ItemSchema.post),
+    post: Mongoose.model('Item', ItemSchema.post),
 
 }
 
