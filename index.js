@@ -16,11 +16,13 @@ let router = express.Router()
  */
 
 // HTTP Logger
-const accessLogStream = rfs.createStream('access.log', {
-    interval: '1d',
-    path: path.join(__dirname, 'logs')
-})
-router.use(httpLogger('combined', { stream: accessLogStream }))
+if (process.env.LOG_HTTP === 'true') {
+    const accessLogStream = rfs.createStream('access.log', {
+        interval: '1d',
+        path: path.join(__dirname, 'logs')
+    })
+    router.use(httpLogger('combined', { stream: accessLogStream }))
+}
 
 // Body parsing (req.body)
 const bodyParser = require('body-parser')
