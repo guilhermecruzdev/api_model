@@ -13,6 +13,10 @@ DB_HOST=mongodb://localhost:27017/{your_database}
 DB_PORT=27017
 DB_USER=
 DB_PASS=
+
+LOG_HTTP=true
+LOG_ERRORS=true
+LOG_SECURITY=true
 ```
 
 # Author

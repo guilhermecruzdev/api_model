@@ -5,7 +5,7 @@ const fs = require('fs')
 const rfs = require('rotating-file-stream')
 const httpLogger = require('morgan')
 const httpError = require('./middlewares/http-error')
-const httpSafe = require('./middlewares/http-safe')
+const httpSecurity = require('./middlewares/http-security')
 const errorHandler = require('./middlewares/error-handler')
 const express = require('express')
 const app = express()
@@ -16,11 +16,13 @@ let router = express.Router()
  */
 
 // HTTP Logger
-const accessLogStream = rfs.createStream('access.log', {
-    interval: '1d',
-    path: path.join(__dirname, 'logs')
-})
-router.use(httpLogger('combined', { stream: accessLogStream }))
+if (process.env.LOG_HTTP === 'true') {
+    const accessLogStream = rfs.createStream('access.log', {
+        interval: '1d',
+        path: path.join(__dirname, 'logs')
+    })
+    router.use(httpLogger('combined', { stream: accessLogStream }))
+}
 
 // Body parsing (req.body)
 const bodyParser = require('body-parser')
@@ -40,8 +42,8 @@ router.use(i18n.init);
 // HTTP Error
 router.use(httpError)
 
-// HTTP Safe
-router.use(httpSafe)
+// HTTP Security
+router.use(httpSecurity)
 
 // Static files (in order to use with Micro Frontends: https://micro-frontends.org/)
 router.use(express.static(path.join(__dirname, 'public')))
