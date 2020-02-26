@@ -8,7 +8,8 @@ module.exports = {
         search: Joi.search(),
         offset: Joi.offset(),
         limit: Joi.limit(),
-        order: Joi.order(),
+        sort: Joi.sort(),
+        direction: Joi.direction(),
     }),
 
     post: Joi.object({

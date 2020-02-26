@@ -38,7 +38,7 @@ const payload = {
 
 const result = JoiSchema.validate(payload)
 if (result.error) {
-    console.log('Invalid Schema')
+    console.log('\nInvalid Schema\n')
 } else {
-    console.log('Valid Schema')
+    console.log('\nValid Schema\n')
 }

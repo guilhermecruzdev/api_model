@@ -5,47 +5,60 @@ module.exports = {
 
     id: (req, res) => {
 
-        let result = ItemValidator.id.validate(req.params.id)
-        if (result.error) {
-            res.httpError(400, `Invalid Request`, result.error)
+        let schema = ItemValidator.id.validate(req.params.id)
+        if (schema.error) {
+            res.httpError(400, `Invalid Request`, schema.error)
         } else {
-            ItemModel.post.findOne({ _id: req.params.id }, function(error, data) {
-                if (error) {
-                    res.httpError(400, `Could not retrieve the Item`, result.error)
-                } else {
-                    res.send(data)
-                }
-            })
+            ItemModel.post
+                .findOne({
+                    _id: schema.value.id
+                }).exec(function(error, data) {
+                    if (error) {
+                        res.httpError(400, `Could not retrieve the Item`, error)
+                    } else {
+                        res.send(data)
+                    }
+                })
         }
     },
 
     get: (req, res) => {
 
-        let result = ItemValidator.get.validate(req.query)
-        if (result.error) {
-            res.httpError(400, `Invalid Request`, result.error)
+        // Validates the req.query parameters (search, offset, limit, order)
+        let schema = ItemValidator.get.validate(req.query)
+        if (schema.error) {
+            res.httpError(400, `Invalid Request`, schema.error)
         } else {
-            ItemModel.post.find({ name: req.query['search'] }, function(error, data) {
-                if (error) {
-                    res.httpError(400, `Could not retrieve the Items`, result.error)
-                } else {
-                    res.send(data)
-                }
-            })
+            ItemModel.post
+                .find({
+                    name: schema.value.search
+                })
+                .skip(schema.value.limit * (schema.value.offset - 1))
+                .limit(schema.value.limit)
+                .sort(
+                    ((new Object())[schema.value.sort] = schema.value.direction)
+                )
+                .exec(function(error, data) {
+                    if (error) {
+                        res.httpError(400, `Could not retrieve the Items`, error)
+                    } else {
+                        res.send(data)
+                    }
+                })
         }
     },
 
     post: (req, res) => {
         // Validates the req.body (JSON) with the validator based on rules in the object model
-        let result = ItemValidator.post.validate(req.body)
-        if (result.error) {
-            res.httpError(400, `Invalid JSON`, result.error)
+        let schema = ItemValidator.post.validate(req.body)
+        if (schema.error) {
+            res.httpError(400, `Invalid JSON`, schema.error)
         } else {
             // Will req.body (JSON) fit the database model?
-            let Item = ItemModel.post(req.body)
+            let Item = ItemModel.post(schema.value)
             let error = Item.validate().then(() => {
-                Item.save(req.body).then(() => {
-                    res.send(req.body)
+                Item.save(schema.value).then(() => {
+                    res.send(schema.value)
                 }).catch(error => {
                     res.httpError(400, `Error while saving Item`, error)
                 })

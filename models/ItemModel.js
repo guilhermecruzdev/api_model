@@ -54,7 +54,7 @@ const ItemSchema = {
                 trim: true,
             }
         }]
-    })
+    }, { timestamps: true })
 
 }
 
