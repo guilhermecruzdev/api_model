@@ -4,6 +4,19 @@ const Joi = require('@hapi/joi')
 
 module.exports = Joi.extend(
 
+    // direction
+    {
+        base: Joi.string().valid(
+            '1',
+            '-1',
+            'asc',
+            'desc',
+            'ascending',
+            'descending',
+        ).default('-1').trim(),
+        type: 'direction',
+    },
+
     // email
     {
         base: Joi.string().email().min(6).max(100).allow(null).required().trim(),
@@ -48,12 +61,6 @@ module.exports = Joi.extend(
         type: 'offset',
     },
 
-    // order
-    {
-        base: Joi.number().min(1).default(1),
-        type: 'order',
-    },
-
     // phone
     {
         base: Joi.object({
@@ -82,6 +89,12 @@ module.exports = Joi.extend(
     {
         base: Joi.string().min(2).max(100).trim(),
         type: 'search',
+    },
+
+    // sort
+    {
+        base: Joi.string().regex(/^[0-9a-zA-Z]+$/).default('createdAt'),
+        type: 'sort',
     },
 
     // zipCode
