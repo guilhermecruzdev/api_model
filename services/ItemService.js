@@ -32,7 +32,7 @@ module.exports = {
             res.httpError(400, `Invalid Request`, schema.error)
         } else {
             let find = {}
-            if (schema.value.search !== '') {
+            if ((schema.value.search) && (schema.value.search !== '')) {
                 find = {
                     name: schema.value.search
                 }
