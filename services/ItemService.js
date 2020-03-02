@@ -32,9 +32,9 @@ module.exports = {
             res.httpError(400, `Invalid Request`, schema.error)
         } else {
             let find = {}
-            if ((schema.value.search) && (schema.value.search !== '')) {
+            if (schema.value.search !== '') {
                 find = {
-                    name: schema.value.search
+                    name: { $regex: schema.value.search, $options: 'i' }
                 }
             }
             let skip = schema.value.limit * (schema.value.offset - 1)

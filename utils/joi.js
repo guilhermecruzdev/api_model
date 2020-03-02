@@ -87,7 +87,7 @@ module.exports = Joi.extend(
 
     // search
     {
-        base: Joi.string().min(2).max(100).allow('').trim(),
+        base: Joi.string().min(2).max(100).empty('').default('').trim(),
         type: 'search',
     },
 
