@@ -5,13 +5,15 @@ module.exports = {
 
     id: (req, res) => {
 
+        // Validates the req.params parameters (id)
         let schema = ItemValidator.id.validate(req.params.id)
         if (schema.error) {
             res.httpError(400, `Invalid Request`, schema.error)
         } else {
+            let id = schema.value
             ItemModel.post
                 .findOne({
-                    _id: schema.value.id
+                    _id: id
                 }).exec(function(error, data) {
                     if (error) {
                         res.httpError(400, `Could not retrieve the Item`, error)
@@ -29,15 +31,21 @@ module.exports = {
         if (schema.error) {
             res.httpError(400, `Invalid Request`, schema.error)
         } else {
-            ItemModel.post
-                .find({
+            let find = {}
+            if (schema.value.search !== '') {
+                find = {
                     name: schema.value.search
-                })
-                .skip(schema.value.limit * (schema.value.offset - 1))
-                .limit(schema.value.limit)
-                .sort(
-                    ((new Object())[schema.value.sort] = schema.value.direction)
-                )
+                }
+            }
+            let skip = schema.value.limit * (schema.value.offset - 1)
+            let limit = schema.value.limit
+            let sort = {}
+            sort[schema.value.sort] = schema.value.direction
+            ItemModel.post
+                .find(find)
+                .skip(skip)
+                .limit(limit)
+                .sort(sort)
                 .exec(function(error, data) {
                     if (error) {
                         res.httpError(400, `Could not retrieve the Items`, error)
@@ -55,10 +63,11 @@ module.exports = {
             res.httpError(400, `Invalid JSON`, schema.error)
         } else {
             // Will req.body (JSON) fit the database model?
-            let Item = ItemModel.post(schema.value)
-            let error = Item.validate().then(() => {
-                Item.save(schema.value).then(() => {
-                    res.send(schema.value)
+            let body = schema.value
+            let Item = ItemModel.post(body)
+            Item.validate().then(() => {
+                Item.save(body).then(() => {
+                    res.send(Item)
                 }).catch(error => {
                     res.httpError(400, `Error while saving Item`, error)
                 })
