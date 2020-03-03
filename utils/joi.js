@@ -6,14 +6,14 @@ module.exports = Joi.extend(
 
     // direction
     {
-        base: Joi.string().valid(
+        base: Joi.string().lowercase().valid(
             '1',
             '-1',
             'asc',
             'desc',
             'ascending',
             'descending',
-        ).default('-1').trim(),
+        ).default('-1').empty('').trim(),
         type: 'direction',
     },
 
@@ -39,7 +39,7 @@ module.exports = Joi.extend(
 
     // limit
     {
-        base: Joi.number().min(10).multiple(10).default(10),
+        base: Joi.number().min(10).multiple(10).default(10).empty(''),
         type: 'limit',
     },
 
@@ -57,7 +57,7 @@ module.exports = Joi.extend(
 
     // offset
     {
-        base: Joi.number().min(1).default(1),
+        base: Joi.number().min(1).default(1).empty(''),
         type: 'offset',
     },
 
@@ -87,13 +87,13 @@ module.exports = Joi.extend(
 
     // search
     {
-        base: Joi.string().min(2).max(100).trim(),
+        base: Joi.string().min(2).max(100).empty('').default('').trim(),
         type: 'search',
     },
 
     // sort
     {
-        base: Joi.string().regex(/^[0-9a-zA-Z]+$/).default('createdAt'),
+        base: Joi.string().regex(/^[0-9a-zA-Z_]+$/).empty('').default('createdAt'),
         type: 'sort',
     },
 
