@@ -11,7 +11,7 @@ module.exports = {
             res.httpError(400, `Bad Request`, schema.error)
         } else {
             let id = schema.value
-            ItemModel.post
+            ItemModel
                 .findOne({
                     _id: id
                 }).exec(function(error, data) {
@@ -42,7 +42,7 @@ module.exports = {
             let limit = schema.value.limit
             let sort = {}
             sort[schema.value.sort] = schema.value.direction
-            ItemModel.post
+            ItemModel
                 .find(find)
                 .skip(skip)
                 .limit(limit)
@@ -67,7 +67,7 @@ module.exports = {
         } else {
             // Will req.body (JSON) fit the database model?
             let body = schema.value
-            ItemModel.post.create(body, function(error, data) {
+            ItemModel.create(body, function(error, data) {
                 if (error) {
                     res.httpError(500, `Internal Server Error`, error)
                 } else {
@@ -95,7 +95,7 @@ module.exports = {
             } else {
                 // Will req.body (JSON) fit the database model?
                 let body = schema.value
-                ItemModel.post.findOneAndUpdate({
+                ItemModel.findOneAndUpdate({
                     _id: id
                 }, body, { new: true }, function(error, data) {
                     if (error) {
@@ -118,7 +118,7 @@ module.exports = {
             res.httpError(400, `Bad Request`, schema.error)
         } else {
             let id = schema.value
-            ItemModel.post
+            ItemModel
                 .findOneAndDelete({
                     _id: id
                 }).exec(function(error, data) {
