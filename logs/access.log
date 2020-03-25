@@ -1,0 +1,5 @@
+::1 - - [25/Mar/2020:17:15:48 +0000] "GET /ping HTTP/1.1" 200 15 "-" "PostmanRuntime/7.22.0"
+::1 - - [25/Mar/2020:17:15:54 +0000] "GET /items?search=ZZZ HTTP/1.1" 200 2 "-" "PostmanRuntime/7.22.0"
+::1 - - [25/Mar/2020:17:16:02 +0000] "GET /items/5e56f600262edd0520a13aed/ HTTP/1.1" 200 0 "-" "PostmanRuntime/7.22.0"
+::1 - - [25/Mar/2020:17:16:59 +0000] "POST /items HTTP/1.1" 201 317 "-" "PostmanRuntime/7.22.0"
+::1 - - [25/Mar/2020:17:20:46 +0000] "POST /items HTTP/1.1" 201 317 "-" "PostmanRuntime/7.22.0"

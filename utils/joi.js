@@ -6,14 +6,7 @@ module.exports = Joi.extend(
 
     // direction
     {
-        base: Joi.string().lowercase().valid(
-            '1',
-            '-1',
-            'asc',
-            'desc',
-            'ascending',
-            'descending',
-        ).default('-1').empty('').trim(),
+        base: Joi.string().lowercase().valid('1', '-1', 'asc', 'desc', 'ascending', 'descending').default('-1').empty('').trim(),
         type: 'direction',
     },
 
