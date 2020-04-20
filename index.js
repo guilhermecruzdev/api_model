@@ -62,7 +62,28 @@ router.use(errorHandler)
 
 // ping (Check if API is running)
 router.get('/ping', (req, res) => {
-    res.send(`API is running.`)
+    switch (req.headers['content-type']) {
+        case 'text/html':
+            {
+                res.send(`API is running.`)
+                break
+            }
+        case 'application/json':
+            {
+                let date = require('./utils/date')
+                res.json({
+                    api: {
+                        status: 'On',
+                        statusDate: date.utc(),
+                    }
+                })
+                break
+            }
+        default:
+            {
+                res.httpError(404, `Not Found`)
+            }
+    }
 })
 
 // API Routes
