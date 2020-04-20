@@ -34,10 +34,11 @@ const cookieParser = require('cookie-parser')
 router.use(cookieParser())
 
 // Translations (i18n)
+global.lang = {}
 const i18n = require('i18n')
 const i18nConfig = require(path.join(__dirname, 'configs', 'i18n'))(path)
 i18n.configure(i18nConfig)
-router.use(i18n.init);
+router.use(i18n.init)
 
 // HTTP Error
 router.use(httpError)

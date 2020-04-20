@@ -15,8 +15,8 @@ module.exports = {
     post: Joi.object({
         name: Joi.string().min(2).max(250).required().trim(),
         phones: Joi.array().items({
-            area_code: Joi.string().regex(new RegExp(global.__('REGEXP_AREA_CODE'))).allow(null).required().trim(),
-            phone_number: Joi.string().regex(new RegExp(global.__('REGEXP_PHONE_NUMBER'))).required().trim(),
+            area_code: Joi.string().regex(new RegExp(global.lang.__('REGEXP_AREA_CODE'))).allow(null).required().trim(),
+            phone_number: Joi.string().regex(new RegExp(global.lang.__('REGEXP_PHONE_NUMBER'))).required().trim(),
         }),
         emails: Joi.array().items({
             email: Joi.string().email().min(6).max(100).required().trim(),

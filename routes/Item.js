@@ -1,4 +1,4 @@
-ItemService = require('../services/ItemService')
+const ItemService = require('../services/ItemService')
 
 module.exports = (router) => {
 

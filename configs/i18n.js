@@ -8,6 +8,6 @@ module.exports = (path) => {
         cookie: 'lang',
         directory: path.join(__dirname, '../locales'),
         queryParameter: 'lang',
-        register: global
+        register: global.lang
     }
 }

@@ -1,5 +1,5 @@
-ItemValidator = require('../validators/ItemValidator')
-ItemModel = require('../models/ItemModel')
+const ItemValidator = require('../validators/ItemValidator')
+const ItemModel = require('../models/ItemModel')
 
 module.exports = {
 

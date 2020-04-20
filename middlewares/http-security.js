@@ -9,7 +9,7 @@ module.exports = (req, res, next) => {
     let events = []
 
     // Ensure that all POST requests have 'application/json' in Content-Type header
-    if ((req.method === 'POST') && (!req.is('application/json'))) {
+    if ((req.headers['content-type'] != 'text/html') && (req.headers['content-type'] != 'application/json')) {
         events.push(`Content-Type must be 'application/json' in all POST requests.`)
     }
 
