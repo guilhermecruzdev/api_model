@@ -1,5 +1,5 @@
-ItemValidator = require('../validators/ItemValidator')
-ItemModel = require('../models/ItemModel')
+const ItemValidator = require('../validators/ItemValidator')
+const ItemModel = require('../models/ItemModel')
 
 module.exports = {
 
@@ -8,7 +8,7 @@ module.exports = {
         // Validates the req.params parameters (id)
         let schema = ItemValidator.id.validate(req.params.id)
         if (schema.error) {
-            res.httpError(400, `Bad Request`, schema.error)
+            res.security(schema.error, 'Item ID')
         } else {
             let id = schema.value
             ItemModel
@@ -16,7 +16,7 @@ module.exports = {
                     _id: id
                 }).exec(function(error, data) {
                     if (error) {
-                        res.httpError(500, `Internal Server Error`, error)
+                        res.security(error, 'Item ID')
                     } else {
                         res.status(200).send(data)
                     }
@@ -30,7 +30,7 @@ module.exports = {
         // Validates the req.query parameters (search, offset, limit, order)
         let schema = ItemValidator.get.validate(req.query)
         if (schema.error) {
-            res.httpError(400, `Bad Request`, schema.error)
+            res.security(schema.error, 'Item GET')
         } else {
             let find = {}
             if (schema.value.search !== '') {
@@ -49,7 +49,7 @@ module.exports = {
                 .sort(sort)
                 .exec(function(error, data) {
                     if (error) {
-                        res.httpError(500, `Internal Server Error`, error)
+                        res.security(error, 'Item GET')
                     } else {
                         res.status(200).send(data)
                     }
@@ -63,13 +63,13 @@ module.exports = {
         // Validates the req.body (JSON) with the validator based on rules in the object model
         let schema = ItemValidator.post.validate(req.body)
         if (schema.error) {
-            res.httpError(400, `Bad Request`, schema.error)
+            res.security(schema.error, 'Item POST')
         } else {
             // Will req.body (JSON) fit the database model?
             let body = schema.value
             ItemModel.create(body, function(error, data) {
                 if (error) {
-                    res.httpError(500, `Internal Server Error`, error)
+                    res.security(error, 'Item POST')
                 } else {
                     res.status(201).send(data)
                 }
@@ -84,14 +84,14 @@ module.exports = {
         // Validates the req.params parameters (id)
         let schema = ItemValidator.id.validate(req.params.id)
         if (schema.error) {
-            res.httpError(400, `Bad Request`, schema.error)
+            res.security(schema.error, 'Item PUT')
         } else {
             let id = schema.value
 
             // Validates the req.body (JSON) with the validator based on rules in the object model
             schema = ItemValidator.post.validate(req.body)
             if (schema.error) {
-                res.httpError(400, `Bad Request`, schema.error)
+                res.security(schema.error, 'Item PUT')
             } else {
                 // Will req.body (JSON) fit the database model?
                 let body = schema.value
@@ -99,7 +99,7 @@ module.exports = {
                     _id: id
                 }, body, { new: true }, function(error, data) {
                     if (error) {
-                        res.httpError(500, `Internal Server Error`, error)
+                        res.security(error, 'Item PUT')
                     } else {
                         res.status(200).send(data)
                     }
@@ -115,7 +115,7 @@ module.exports = {
         // Validates the req.params parameters (id)
         let schema = ItemValidator.id.validate(req.params.id)
         if (schema.error) {
-            res.httpError(400, `Bad Request`, schema.error)
+            res.security(schema.error, 'Item DELETE')
         } else {
             let id = schema.value
             ItemModel
@@ -123,7 +123,7 @@ module.exports = {
                     _id: id
                 }).exec(function(error, data) {
                     if (error) {
-                        res.httpError(500, `Internal Server Error`, error)
+                        res.security(error, 'Item DELETE')
                     } else {
                         res.sendStatus(204)
                     }

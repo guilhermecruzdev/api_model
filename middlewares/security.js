@@ -4,32 +4,28 @@ const date = require(path.join(__dirname, '../utils/date'))
 
 module.exports = (req, res, next) => {
 
-    let code = 401
-    let message = `Suspicious activities were detected.`
-    let events = []
-
-    // Ensure that all POST requests have 'application/json' in Content-Type header
-    if ((req.method === 'POST') && (!req.is('application/json'))) {
-        events.push(`Content-Type must be 'application/json' in all POST requests.`)
-    }
-
-    if (events.length > 0) {
+    res.security = ($data, $message = null) => {
 
         if (process.env.LOG_SECURITY === 'true') {
             fs.appendFileSync(path.join(__dirname, '../logs/security.log'),
                 JSON.stringify({
                     date: date.utc(),
                     timezone: date.timezone(),
-                    code: code,
+                    data: data,
                     message: message,
-                    events: events,
+                    req: req,
+                    res: res,
                 }, null, 2) + '\n\n')
         }
+        res.sendStatus(400)
 
-        res.httpError(code, message, events)
+    }
 
+    // Content-Type
+    let contentType = req.headers['content-type']
+    if (Object.values(global.types).indexOf(contentType) === -1) {
+        res.security.log(contentType, 'Content-Type')
     } else {
-        // Everything is ok
         next()
     }
 }

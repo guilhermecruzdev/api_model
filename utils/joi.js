@@ -38,7 +38,7 @@ module.exports = Joi.extend(
 
     // name
     {
-        base: Joi.string().min(2).max(250).required().trim(),
+        base: Joi.string().min(2).max(255).required().trim(),
         type: 'name',
     },
 
@@ -57,8 +57,8 @@ module.exports = Joi.extend(
     // phone
     {
         base: Joi.object({
-            area_code: Joi.string().regex(new RegExp(global.__('REGEXP_AREA_CODE'))).allow(null).required().trim(),
-            phone_number: Joi.string().regex(new RegExp(global.__('REGEXP_PHONE_NUMBER'))).required().trim(),
+            area_code: Joi.string().regex(new RegExp(global.lang.__('REGEXP_AREA_CODE'))).allow(null).required().trim(),
+            phone_number: Joi.string().regex(new RegExp(global.lang.__('REGEXP_PHONE_NUMBER'))).required().trim(),
         }),
         type: 'phone',
     },
@@ -66,15 +66,15 @@ module.exports = Joi.extend(
     // phones
     {
         base: Joi.array().items({
-            area_code: Joi.string().regex(new RegExp(global.__('REGEXP_AREA_CODE'))).allow(null).required().trim(),
-            phone_number: Joi.string().regex(new RegExp(global.__('REGEXP_PHONE_NUMBER'))).required().trim(),
+            area_code: Joi.string().regex(new RegExp(global.lang.__('REGEXP_AREA_CODE'))).allow(null).required().trim(),
+            phone_number: Joi.string().regex(new RegExp(global.lang.__('REGEXP_PHONE_NUMBER'))).required().trim(),
         }),
         type: 'phones',
     },
 
     // postalCode
     {
-        base: Joi.string().regex(new RegExp(global.__('REGEXP_ZIP_CODE'))).trim(),
+        base: Joi.string().regex(new RegExp(global.lang.__('REGEXP_ZIP_CODE'))).trim(),
         type: 'postalCode',
     },
 
@@ -92,7 +92,7 @@ module.exports = Joi.extend(
 
     // zipCode
     {
-        base: Joi.string().regex(new RegExp(global.__('REGEXP_ZIP_CODE'))).trim(),
+        base: Joi.string().regex(new RegExp(global.lang.__('REGEXP_ZIP_CODE'))).trim(),
         type: 'zipCode',
     }
 
