@@ -24,7 +24,7 @@ module.exports = (req, res, next) => {
     // Content-Type
     let contentType = req.headers['content-type']
     if (Object.values(global.types).indexOf(contentType) === -1) {
-        res.security.log(contentType, 'Content-Type')
+        res.security(contentType, 'Content-Type')
     } else {
         next()
     }
