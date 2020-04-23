@@ -38,7 +38,7 @@ module.exports = Joi.extend(
 
     // name
     {
-        base: Joi.string().min(2).max(250).required().trim(),
+        base: Joi.string().min(2).max(255).required().trim(),
         type: 'name',
     },
 

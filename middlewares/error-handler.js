@@ -9,7 +9,7 @@ module.exports = (error, req, res, next) => {
     let stack = error.stack
 
     if (process.env.LOG_ERRORS === 'true') {
-        fs.appendFileSync(path.join(__dirname, '../logs/errors.log'),
+        fs.appendFileSync(path.join(__dirname, '../logs/error.log'),
             JSON.stringify({
                 date: date.utc(),
                 timezone: date.timezone(),

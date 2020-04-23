@@ -3,6 +3,7 @@ module.exports = (path) => {
         locales: [
             'en',
             'pt-BR',
+            'es',
         ],
         defaultLocale: process.env.APP_LANG,
         cookie: 'lang',

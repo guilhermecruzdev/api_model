@@ -4,12 +4,14 @@ const path = require('path')
 const fs = require('fs')
 const rfs = require('rotating-file-stream')
 const httpLogger = require('morgan')
-const httpError = require('./middlewares/http-error')
-const httpSecurity = require('./middlewares/http-security')
+const security = require('./middlewares/security')
 const errorHandler = require('./middlewares/error-handler')
 const express = require('express')
 const app = express()
 let router = express.Router()
+
+// Content-Types
+global.types = require('./configs/content-types')
 
 /**
  * #### Middlewares ####
@@ -40,11 +42,8 @@ const i18nConfig = require(path.join(__dirname, 'configs', 'i18n'))(path)
 i18n.configure(i18nConfig)
 router.use(i18n.init)
 
-// HTTP Error
-router.use(httpError)
-
-// HTTP Security
-router.use(httpSecurity)
+// Security
+router.use(security)
 
 // Static files (in order to use with Micro Frontends: https://micro-frontends.org/)
 router.use(express.static(path.join(__dirname, 'public')))
@@ -62,16 +61,16 @@ router.use(errorHandler)
 
 // ping (Check if API is running)
 router.get('/ping', (req, res) => {
+    let date = require('./utils/date')
     switch (req.headers['content-type']) {
-        case 'text/html':
+        case global.types.HTML:
             {
-                res.send(`API is running.`)
+                res.status(200).send(`api is On (` + date.utc() + `)`)
                 break
             }
-        case 'application/json':
+        case global.types.JSON:
             {
-                let date = require('./utils/date')
-                res.json({
+                res.status(200).json({
                     api: {
                         status: 'On',
                         statusDate: date.utc(),
@@ -79,20 +78,16 @@ router.get('/ping', (req, res) => {
                 })
                 break
             }
-        default:
-            {
-                res.httpError(404, `Not Found`)
-            }
     }
 })
 
 // API Routes
-router = require('./routes/Item')(router)
+router = require('./routes/Auth')(router)
+router = require('./routes/Product')(router)
 
 // 404 Not Found
 router.use(function(req, res) {
-    res.httpError(404, `Not Found`)
-
+    res.sendStatus(404)
 })
 
 /**
@@ -107,5 +102,6 @@ app.set('view engine', 'ejs')
 
 // Start application
 const port = process.env.APP_PORT
-const server = app.listen(port, () => console.log(`App listening on port ${port}.`))
+const message = `App listening on port ${port}.`
+const server = app.listen(port, () => console.log(message))
 server.setTimeout(1000)
