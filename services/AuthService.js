@@ -27,7 +27,7 @@ module.exports = {
                                 res.security(error, 'Auth Login')
                             } else {
                                 if (result === true) {
-                                    res.status(200).send(data)
+                                    res.header('X-Auth-Token', data.generateAuthToken()).status(200).send(data)
                                 } else {
                                     res.sendStatus(404)
                                 }
@@ -65,7 +65,7 @@ module.exports = {
                                     if (error) {
                                         res.security(error, 'Auth Register')
                                     } else {
-                                        res.status(201).send(data)
+                                        res.header('X-Auth-Token', data.generateAuthToken()).status(201).send(data)
                                     }
                                 })
                             }

@@ -12,6 +12,8 @@ APP_HOST=localhost
 APP_PORT=8080
 APP_LANG=en
 
+AUTH_PRIVATE_KEY=
+
 DB_HOST=mongodb://localhost:27017/{your_database}
 DB_PORT=27017
 DB_USER=
