@@ -83,7 +83,7 @@ router.get('/ping', (req, res) => {
 
 // API Routes
 router = require('./routes/Auth')(router)
-router = require('./routes/Product')(router)
+router = require('./routes/Item')(router)
 
 // 404 Not Found
 router.use(function(req, res) {

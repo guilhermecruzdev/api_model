@@ -1,10 +1,11 @@
+const flatted = require('flatted')
 const fs = require('fs')
 const path = require('path')
 const date = require(path.join(__dirname, '../utils/date'))
 
 module.exports = (req, res, next) => {
 
-    res.security = ($data, $message = null) => {
+    res.security = (data, message = null, code = 400) => {
 
         if (process.env.LOG_SECURITY === 'true') {
             fs.appendFileSync(path.join(__dirname, '../logs/security.log'),
@@ -13,11 +14,11 @@ module.exports = (req, res, next) => {
                     timezone: date.timezone(),
                     data: data,
                     message: message,
-                    req: req,
-                    res: res,
+                    req: flatted.stringify(req),
+                    res: flatted.stringify(res),
                 }, null, 2) + '\n\n')
         }
-        res.sendStatus(400)
+        res.sendStatus(code)
 
     }
 
