@@ -4,8 +4,10 @@ This API is being created to be used as a target for several attacks, such as fu
 ## .env file
 
 ```
+NODE_ENV=development
+
 APP_NAME=api_model
-APP_PROTOCOL=https
+APP_PROTOCOL=http
 APP_HOST=localhost
 APP_PORT=8080
 APP_LANG=en
