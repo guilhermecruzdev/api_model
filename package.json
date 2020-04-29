@@ -1,7 +1,7 @@
 {
-    "name": "XCommerce",
+    "name": "api_model",
     "version": "1.0.0",
-    "description": "APi do XCommerce.",
+    "description": "This API is being created to be used as a target for several attacks, such as fuzzing, flooding and pentesting.",
     "main": "index.js",
     "scripts": {
         "start": "node index",
@@ -9,14 +9,14 @@
     },
     "repository": {
         "type": "git",
-        "url": "git+https://gitlab.com/guilhermecruzdev/xcommerce_api.git"
+        "url": "git+https://github.com/guilhermecruzdev/api_model.git"
     },
     "author": "https://guilhermecruzdev.com",
     "license": "ISC",
     "bugs": {
-        "url": "https://gitlab.com/guilhermecruzdev/xcommerce_api/issues"
+        "url": "https://github.com/guilhermecruzdev/api_model/issues"
     },
-    "homepage": "https://gitlab.com/guilhermecruzdev/xcommerce_api#readme",
+    "homepage": "https://github.com/guilhermecruzdev/api_model#readme",
     "dependencies": {
         "@hapi/joi": "^17.1.0",
         "bcrypt": "^4.0.1",
