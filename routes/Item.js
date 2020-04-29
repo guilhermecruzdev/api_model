@@ -1,15 +1,17 @@
+const AuthMiddleware = require('../middlewares/auth')
+const Service = require('../services/Service')
 const ItemService = require('../services/ItemService')
 
 module.exports = (router) => {
 
     router.route('/items/:id')
-        .get(Service(ItemService.id, global.types.JSON))
-        .put(Service(ItemService.put, global.types.JSON))
-        .delete(Service(ItemService.delete, global.types.JSON))
+        .get(AuthMiddleware, Service(ItemService.id))
+        .put(AuthMiddleware, Service(ItemService.put, global.types.JSON))
+        .delete(AuthMiddleware, Service(ItemService.delete, global.types.JSON))
 
     router.route('/items')
-        .get(Service(ItemService.get, global.types.JSON))
-        .post(Service(ItemService.post, global.types.JSON))
+        .get(AuthMiddleware, Service(ItemService.get))
+        .post(AuthMiddleware, Service(ItemService.post, global.types.JSON))
 
     return router
 
